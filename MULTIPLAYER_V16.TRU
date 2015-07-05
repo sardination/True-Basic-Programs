@@ -1,0 +1,834 @@
+OPEN #1:SCREEN 0,1,0,1
+WINDOW #1
+SET WINDOW 0,100,0,100
+
+
+CALL setting_players(plyr_num, player1_x, player1_y, player2_x, player2_y, player3_x, player3_y, player1$, player2$, player3$)
+
+CALL fruits(cherry$, banana$, lemon$, lime$, pineapple$, grape$, orange$)
+
+
+
+
+LET fruit_num = 0
+
+
+SET COLOR "black"
+
+BOX CIRCLE 0,1.5,0,2.4
+
+FLOOD .75,1.2
+
+SET COLOR "white"
+
+BOX CIRCLE .2,1.3,.2,2.2
+
+BOX CIRCLE .5,1,.5,1.9
+
+BOX KEEP 0,1.5,0,2.4 in abyss$
+
+
+IF plyr_num = 1 then
+
+	
+	LET abyss_limit = 150
+
+ELSE 
+
+	LET abyss_limit = 100
+
+END IF
+
+
+
+
+DIM abyssx(0),abyssy(0)
+
+MAT REDIM abyssx(abyss_limit),abyssy(abyss_limit)
+
+
+
+
+RANDOMIZE
+
+
+DO
+
+	CALL initialize(plyr_num, player2_x, player2_y, player3_x, player3_y)
+
+
+	CALL moving_players(k, plyr_num, player1_x, player1_y, player2_x, player2_y, playerr3_x, player3_y, player1$, player2$, player3$)
+
+
+	
+
+
+
+	IF (player1_x > fruitx AND player1_x < (fruitx + 1.25) AND player1_y > fruity AND player1_y < (fruity + 2.4)) OR (player2_x > fruitx AND player2_x < (fruitx + 1.25) AND player2_y > fruity AND player2_y < (fruity + 2.4)) OR (player3_x > fruitx AND player3_x < (fruitx + 1.25) AND player3_y > fruity AND player3_y < (fruity + 2.4)) OR fruit_num = 0 then	
+
+	
+		IF player1_x > fruitx AND player1_x < (fruitx + 1.25) AND player1_y > fruity AND player1_y < (fruity + 2.4) then
+
+			LET player1_score = player1_score + fruit_num
+
+		ELSE IF player2_x > fruitx AND player2_x < (fruitx + 1.25) AND player2_y > fruity AND player2_y < (fruity + 2.4) then
+
+			LET player2_score = player2_score + fruit_num
+
+		ELSE IF player3_x > fruitx AND player3_x < (fruitx + 1.25) AND player3_y > fruity AND player3_y < (fruity + 2.4) then
+
+			LET player3_score = player3_score + fruit_num
+
+		END IF	
+
+
+
+		!-----Get Fruit-------
+
+		IF rnd_num = 0 then
+		
+			LET rnd_num = 7
+
+		ELSE IF rnd_num = 7 then
+
+			LET rnd_num = 6
+
+		ELSE IF rnd_num = 6 then
+
+			LET rnd_num = 5
+
+		ELSE IF rnd_num = 5 then
+
+			LET rnd_num = 4
+
+		ELSE IF rnd_num = 4 then
+
+			LET rnd_num = 3
+
+		ELSE IF rnd_num = 3 then
+
+			LET rnd_num = 2
+
+		ELSE IF rnd_num = 2 then
+
+			LET rnd_num = 1
+
+		ELSE IF rnd_num = 1 then
+
+			LET rnd_num = 7
+
+		END IF
+
+
+
+
+
+		DO 
+	
+
+			LET fruit_num = rnd * rnd_num
+
+			LET fruit_num = INT(fruit_num)
+
+	
+
+
+			IF fruit_num = 1 then
+
+			
+				LET fruit$ = "cherry"
+
+
+			ELSE IF fruit_num = 2 then
+
+
+				LET fruit$ = "banana"
+
+			
+			ELSE IF fruit_num = 3 then
+
+
+				LET fruit$ = "lemon"
+
+
+			ELSE IF fruit_num = 4 then
+
+
+				LET fruit$ = "lime"
+
+
+			ELSE IF fruit_num = 5 then
+
+	
+				LET fruit$ = "pineapple"
+
+
+			ELSE IF fruit_num = 6 then
+
+		
+				LET fruit$ = "grape"
+
+
+			ELSE IF fruit_num = 7 then
+
+
+				LET fruit$ = "grapefruit"
+
+
+			END IF
+
+		
+
+		LOOP UNTIL fruit_num > 0
+
+
+
+		!-----Finish Get Fruit-----
+
+
+
+
+		DO 
+
+			LET fruitx = rnd*100
+
+			LET fruity = rnd*100
+
+
+		LOOP UNTIL fruitx > 10 AND fruity > 10
+
+
+		IF fruit$ = "cherry" then
+		
+			BOX SHOW cherry$ at fruitx,fruity
+
+		ELSE IF fruit$  = "banana" then
+
+			BOX SHOW banana$ at fruitx,fruity
+
+		ELSE IF fruit$ = "lemon" then
+
+			BOX SHOW lemon$ at fruitx,fruity
+
+		ELSE IF	fruit$ = "lime" then
+
+			BOX SHOW lime$ at fruitx,fruity
+
+		ELSE IF fruit$ = "pineapple" then
+
+			BOX SHOW pineapple$ at fruitx,fruity
+
+		ELSE IF fruit$ = "grape" then
+
+			BOX SHOW grape$ at fruitx,fruity
+	
+		ELSE IF fruit$ = "orange" then
+
+			BOX SHOW orange$ at fruitx,fruity
+
+		END IF
+
+
+ 
+
+		
+		MAT REDIM abyssx(0),abyssy(0)
+
+		MAT REDIM abyssx(abyss_limit),abyssy(abyss_limit)
+
+
+		LET X = 0
+
+		FOR X = 1 TO abyss_limit
+			
+			LET abyssx(X) = rnd * 100
+
+			LET abyssy(X) = rnd * 100
+
+			BOX SHOW abyss$ at abyssx(X),abyssy(X)
+		
+
+		NEXT X
+
+
+
+	END IF
+	
+
+
+
+
+	
+	LET X = 0
+
+
+	FOR X = 1 TO abyss_limit
+
+
+		BOX SHOW abyss$ at abyssx(X),abyssy(X)
+
+
+		IF player1_x > abyssx(X) AND player1_x < (abyssx(X) + 1.5) AND player1_y > abyssy(X) AND player1_y < (abyssy(X) + 2.4) then
+
+			LET player1_score = player1_score - 3
+
+		ELSE IF player2_x > abyssx(X) AND player2_x < (abyssx(X) + 1.5) AND player2_y > abyssy(X) AND player2_y < (abyssy(X) + 2.4) then
+
+			LET player2_score = player2_score - 3
+
+		ELSE IF player3_x > abyssx(X) AND player3_x < (abyssx(X) + 1.5) AND player3_y > abyssy(X) AND player3_y < (abyssy(X) + 2.4) then
+ 
+			LET player3_score = player3_score - 3
+
+		END IF
+
+
+	NEXT X
+
+
+
+
+
+	IF fruit$ = "cherry" then
+		
+		BOX SHOW cherry$ at fruitx,fruity
+
+	ELSE IF fruit$  = "banana" then
+
+		BOX SHOW banana$ at fruitx,fruity
+
+	ELSE IF fruit$ = "lemon" then
+
+		BOX SHOW lemon$ at fruitx,fruity
+
+	ELSE IF	fruit$ = "lime" then
+
+		BOX SHOW lime$ at fruitx,fruity
+
+	ELSE IF fruit$ = "pineapple" then
+
+		BOX SHOW pineapple$ at fruitx,fruity
+
+	ELSE IF fruit$ = "grape" then
+
+		BOX SHOW grape$ at fruitx,fruity
+	
+	ELSE IF fruit$ = "orange" then
+
+		BOX SHOW orange$ at fruitx,fruity
+
+	END IF
+
+
+
+
+	
+	SET COLOR "black"
+
+
+	PRINT "Player 1: "; player1_score, "Player 2: "; player2_score, "Player 3: "; player3_score
+
+			
+
+
+
+LOOP
+
+
+
+
+
+
+END
+
+
+
+
+
+
+
+
+
+
+
+SUB initialize(plyr_num, player2_x, player2_y, player3_x, player3_y)
+
+
+	IF plyr_num = 1 then 
+
+		LET player2_x = (0-100000)
+
+		LET player2_y = (0-100000)
+
+		LET player3_x = (0-100000)
+
+		LET player3_y = (0-100000)
+
+	ELSE IF plyr_num = 2  then
+
+		LET player3_x = (0-100000)
+
+		LET player3_y = (0-100000)
+
+	END IF
+
+
+
+
+END SUB
+
+
+
+
+
+
+SUB setting_players(plyr_num, player1_x, player1_y, player2_x, player2_y, player3_x, player3_y, player1$, player2$, player3$)
+
+	
+
+	INPUT PROMPT "How many players? 1, 2 or 3? ": plyr_num
+
+
+	DO WHILE plyr_num = 1 OR plyr_num = 2 OR plyr_num = 3
+
+		IF plyr_num = 1 then
+
+			INPUT PROMPT "Type 1 or 2 characters for your player: ": player1_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player1_color 
+
+		ELSE IF plyr_num = 2 then
+
+			INPUT PROMPT "Type 1 or 2 characters for player 1: ": player1_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player1_color 
+	
+			INPUT PROMPT "Type 1 or 2 characters for player 2: ": player2_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player2_color 
+	
+		ELSE IF plyr_num = 3 then
+		
+
+			INPUT PROMPT "Type 1 or 2 characters for player 1: ": player1_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player1_color 
+	
+			INPUT PROMPT "Type 1 or 2 characters for player 2: ": player2_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player2_color 
+
+			INPUT PROMPT "Type 1 or 2 characters for player 3: ": player3_char$
+
+			INPUT PROMPT "Color for your player (any number 0-15) ":player3_color 
+
+		ELSE 
+	
+			CLEAR
+	
+			INPUT PROMPT "Choose 1, 2 or 3 players...no more...no less...: ": plyr_num
+
+		END IF
+	
+
+	LOOP UNTIL plyr_num = 1 OR plyr_num = 2 OR plyr_num = 3
+
+
+
+	IF plyr_num = 1 OR plyr_num = 2 OR plyr_num = 3 then
+
+
+		SET COLOR player1_color
+
+		LET player1_x = 10
+
+		LET player1_y = 10
+
+		PLOT TEXT, at player1_x,player1_y:player1_char$
+
+		BOX KEEP 10.2,11.2,9.8,11.2 in player1$
+
+	END IF
+
+	IF plyr_num = 2 OR plyr_num = 3 then
+
+	
+		SET COLOR player2_color
+
+		LET player2_x = 20
+
+		LET player2_y = 10
+
+		PLOT TEXT, at player2_x,player2_y:player2_char$
+
+		BOX KEEP 20.2,21.2,9.8,11.2 in player2$
+
+	END IF 
+
+	IF plyr_num = 3 then
+
+
+		SET COLOR player3_color 
+
+		LET player3_x = 30
+
+		LET player3_y = 10
+
+		PLOT TEXT, at player3_x,player3_y:player3_char$
+
+		BOX KEEP 30.2,31.2,9.8,11.2 in player3$
+	
+	END IF
+
+
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+
+SUB fruits(cherry$, banana$, lemon$, lime$, pineapple$, grape$, orange$)
+
+
+
+	SET COLOR "red"
+ 
+	BOX CIRCLE 40,41,40.8,42.2
+
+	FLOOD 40.5,41.4
+
+
+	SET COLOR "green"
+
+	PLOT LINES: 40.5,42.2; 40.5,43.2; 41.5,42.45; 40.5,42.7
+
+	FLOOD 40.7,42.7
+
+
+	
+	BOX KEEP 40,41.5,40.8,43.2 in cherry$
+
+
+	LET fruitx = 42.2
+
+	LET fruity = 40
+
+
+
+
+
+
+	SET COLOR "yellow"
+
+	BOX CIRCLE 44,46,44,48
+
+	FLOOD 45,45
+
+
+	SET COLOR "white"	
+
+	BOX CIRCLE 43,45,44,48
+
+	FLOOD 44.5,47
+
+
+		
+	BOX KEEP 45,46,44,48 in banana$
+
+
+	LET fruitx = 45
+
+	LET fruity = 48
+
+
+
+
+
+	SET COLOR "yellow"
+
+	BOX CIRCLE 52,54,44,46
+
+	FLOOD 53,45
+
+	PLOT LINES: 52.25,45.5;51.75,45.25;52,44.75
+
+	PLOT LINES: 53.75,45.5;54.25,45.25;54,44.75
+
+	
+	BOX KEEP 52,54.25,44,46 in lemon$
+
+
+	
+	SET COLOR 10
+
+	FLOOD 53,45
+
+	BOX KEEP 52,54.25,44,46 in lime$
+
+	
+
+
+
+	SET COLOR 6
+
+	BOX CIRCLE 48,50,44,48
+
+	FLOOD 49,46
+
+	
+	SET COLOR "green"
+
+	PLOT LINES:48.5,48;48.5,49;49,48;49.5,49;49.5,48
+
+
+	BOX KEEP 48,50,44,49 in pineapple$
+
+
+
+	SET COLOR 5
+	
+	BOX CIRCLE 55,56,44,45
+
+	FLOOD 55.5,44.5
+	
+	
+	BOX KEEP 55,56,44,45 in grape$
+
+
+
+	SET COLOR 13
+
+	BOX CIRCLE 57,59,44,47
+
+	FLOOD 58,46
+
+
+	BOX KEEP 57,59,44,47 in grapefruit$
+
+
+
+
+
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SUB moving_players(k, plyr_num, player1_x, player1_y, player2_x, player2_y, player3_x, player3_y, player1$, player2$, player3$)
+
+
+
+	GET KEY k
+
+
+
+	IF plyr_num = 1 OR plyr_num = 2 OR plyr_num = 3 then
+
+
+		IF k = 301 then 
+	
+			LET player1_y = player1_y + 1
+
+		ELSE IF k = 302 then
+
+			LET player1_y = player1_y - 1
+
+		ELSE IF k = 303 then
+
+			LET player1_x = player1_x + 1
+
+		ELSE IF k = 304 then
+
+			LET player1_x = player1_x - 1
+
+		END IF
+
+	END IF
+	
+	
+	IF plyr_num = 2 OR plyr_num = 3 then
+
+		IF k = 119 OR k = 87 then 
+
+			LET player2_y = player2_y + 1
+
+		ELSE IF k = 115 OR k = 83 then
+
+			LET player2_y = player2_y - 1
+
+		ELSE IF k = 100 OR k = 68 then
+
+			LET player2_x = player2_x + 1
+
+		ELSE IF k = 97 OR k = 65 then
+
+			LET player2_x = player2_x - 1
+
+		END IF
+
+	END IF
+
+	
+	IF plyr_num = 3 then
+
+		IF k = 117 OR k = 85 then
+
+			LET player3_y = player3_y + 1
+
+		ELSE IF k = 106 OR k = 74  then
+
+			LET player3_y = player3_y - 1
+
+		ELSE IF k = 107 OR k = 75 then
+
+			LET player3_x = player3_x + 1
+
+		ELSE IF k = 104 OR k = 72 then
+
+			LET player3_x = player3_x - 1	
+
+		END IF
+
+	END IF
+
+
+
+	IF player1_x > 100 then
+
+	
+		LET player1_x = player1_x - 100
+
+
+	ELSE IF player1_x < 0 then
+
+
+		LET player1_x = 100 + player1_x 
+
+
+	ELSE IF player1_y > 150 then
+
+		
+		LET player1_y = player1_x - 100
+
+
+	ELSE IF player1_y < 0 then
+
+
+		LET player1_y = 100 + player1_y
+
+
+	ELSE IF player2_x > 150 then
+
+	
+		LET player2_x = player2_x - 150
+
+
+	ELSE IF player2_x < 0 then
+
+
+		LET player2_x = 150 + player2_x
+
+
+	ELSE IF player2_y > 150 then
+
+		
+		LET player2_y = player2_y - 150
+
+
+	ELSE IF player2_y < 0 then
+
+
+		LET player2_y = 150 + player2_y
+
+
+	ELSE IF player3_x > 150 then
+
+	
+		LET player3_x = player3_x - 150
+
+
+	ELSE IF player3_x < 0 then
+
+
+		LET player3_x = 150 + player3_x
+
+
+	ELSE IF player3_y > 150 then
+
+		
+		LET player3_y = player3_y - 150
+
+
+	ELSE IF player3_y < 0 then
+
+
+		LET player3_y = 150 + player3_y
+
+	END IF 
+
+
+
+	CLEAR 
+
+
+	BOX SHOW player1$ at player1_x, player1_y
+
+	BOX SHOW player2$ at player2_x, player2_y
+
+	BOX SHOW player3$ at player3_x, player3_y
+
+
+
+
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

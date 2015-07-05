@@ -1,0 +1,1530 @@
+OPEN #1:SCREEN 0,1,0,1
+WINDOW #1
+SET WINDOW 0,150,0,150
+
+
+SET BACKGROUND COLOR "black"
+
+CLEAR
+
+
+!'READ IMAGE' code found from http://sdcc3.ucsd.edu/~ir118/MAE5W02/jpg.html
+
+
+
+!CALL play_song
+
+
+CALL info(TIME,DATE$,bg_color)
+
+
+
+DO
+	
+	
+	CALL pick_bg_color(bg_color)
+
+	CALL pick_PEN_color(pen_color)
+	
+	CALL pick_pen_SIZE(pen_size$)
+
+	CALL size_eraser_paint(pen_size$)
+
+
+	IF pen_size$ = "small_paint" OR pen_size$ = "small_eraser" OR pen_size$ = "small_spray" then
+
+
+			DIM v(1)
+			LET fn$ = "Comic Sans MS" 
+			LET fs$ = "BoldItalic" 
+			LET v(1) = 7 
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 0
+
+			PLOT TEXT, at 144,50: "Small"
+
+
+			LET v(1) = 9
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 15
+
+			PLOT TEXT, at 143,46: "Regular"
+
+
+			LET v(1) = 11
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			PLOT TEXT, at 143,41: "Large"	
+
+
+	ELSE IF pen_size$ = "paint" OR pen_size$ = "eraser" OR pen_size$ = "spray" then
+
+
+			LET fn$ = "Comic Sans MS" 
+			LET fs$ = "BoldItalic" 
+			LET v(1) = 7 
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 15
+
+			PLOT TEXT, at 144,50: "Small"
+
+
+			LET v(1) = 9
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 0
+
+			PLOT TEXT, at 143,46: "Regular"
+
+
+			LET v(1) = 11
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 15
+
+
+			PLOT TEXT, at 143,41: "Large" 
+
+
+	ELSE IF pen_size$ = "large_paint" OR pen_size$ = "large_eraser" OR pen_size$ = "large_spray" then
+
+
+			LET fn$ = "Comic Sans MS" 
+			LET fs$ = "BoldItalic" 
+			LET v(1) = 7 
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			SET COLOR 15
+
+			PLOT TEXT, at 144,50: "Small"
+
+
+			LET v(1) = 9
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+			PLOT TEXT, at 143,46: "Regular"
+
+
+			LET v(1) = 11
+			CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+			SET COLOR 0
+
+
+			PLOT TEXT, at 143,41: "Large"
+
+	END IF
+
+	
+
+		DO
+
+
+
+			GET MOUSE x,y,s
+
+			IF s = 1 AND x < 143 AND y < 143 AND (pen_size$ = "pencil" OR pen_size$ = "paint" OR pen_size$ = "small_paint" OR pen_size$ = "large_paint" OR pen_size$ = "eraser" OR pen_size$ = "small_eraser" OR pen_size$ = "large_eraser") then
+	
+				
+				IF pen_size$ = "pencil" then
+ 
+
+					LET x1 = x - .1
+
+					LET x2 = x + .1
+
+					LET y1 = y - .1
+
+					LET y2 = y + .1
+
+					SET COLOR pen_color
+
+
+				ELSE IF pen_size$ = "paint" then
+
+					
+					LET x1 = x - .5
+
+					LET x2 = x + .5
+
+					LET y1 = y - .5
+
+					LET y2 = y + .5
+
+					SET COLOR pen_color
+
+				
+				ELSE IF pen_size$ = "small_paint" then
+
+
+					LET x1 = x - .3
+
+					LET x2 = x + .3
+
+					LET y1 = y - .3
+
+					LET y2 = y + .3
+
+					SET COLOR pen_color
+
+
+				ELSE IF pen_size$ = "large_paint" then
+
+
+					LET x1 = x - .7
+
+					LET x2 = x + .7
+
+					LET y1 = y - .7
+
+					LET y2 = y + .7
+
+					SET COLOR pen_color
+
+
+				ELSE IF pen_size$ = "eraser" then
+
+
+
+					LET x1 = x - 2
+
+					LET x2 = x + 2
+
+					LET y1 = y - 2
+
+					LET y2 = y + 2
+
+					SET COLOR bg_color
+
+				
+
+				ELSE IF pen_size$ = "small_eraser" then
+
+
+					LET fn$ = "Comic Sans MS" 
+					LET fs$ = "BoldItalic" 
+					LET v(1) = 7 
+					CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+					SET COLOR 0
+
+					PLOT TEXT, at 144,50: "Small"
+
+
+					LET v(1) = 9
+					CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+					SET COLOR 15
+
+					PLOT TEXT, at 143,46: "Regular"
+
+
+					LET v(1) = 11
+					CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+					PLOT TEXT, at 143,41: "Large"
+
+
+
+					LET x1 = x - 1
+
+					LET x2 = x + 1
+
+					LET y1 = y - 1
+
+					LET y2 = y + 1
+					
+					SET COLOR bg_color
+
+				
+				ELSE IF pen_size$ = "large_eraser" then
+
+
+					LET x1 = x - 3
+
+					LET x2 = x + 3
+
+					LET y1 = y - 3
+
+					LET y2 = y + 3
+
+					SET COLOR bg_color
+
+				END IF
+
+				
+
+				BOX AREA x1, x2, y1, y2
+
+
+			ELSE IF	s = 1 AND pen_size$ = "spray" AND x < 143 AND y < 143 then
+
+
+				
+				SET COLOR pen_color
+
+				PLOT POINTS: x,y; x,y-1; x,y+1; x-1,y; x+1,y; x-1,y-1; x+1,y+1; x+1,y-1; x-1,y+1
+
+				PLOT POINTS: x+.5,y+.5; x-.5,y-.5; x,y-.5; x,y+.5; x-.5,y; x+.5,y
+
+				PLOT POINTS: x+1.5,y+1.5; x-1.5,y-1.5; x,y+1.5; x,y+1.5; x+1.5,y; x-1.5,y
+
+				PLOT POINTS: x+.5,y+1.5; x-.5,y+1.5; x+.5,y-1.5; x-.5,y-1.5
+
+				
+			ELSE IF s = 1 AND pen_size$ = "small_spray" AND x < 143 AND y < 143 then
+
+
+				LET fn$ = "Comic Sans MS" 
+				LET fs$ = "BoldItalic" 
+				LET v(1) = 7 
+				CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+				SET COLOR 0
+
+				PLOT TEXT, at 144,50: "Small"
+
+
+				LET v(1) = 9
+				CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+				SET COLOR 15
+
+				PLOT TEXT, at 143,46: "Regular"
+
+
+				LET v(1) = 11
+				CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+				PLOT TEXT, at 143,41: "Large"
+
+
+				
+				SET COLOR pen_color
+
+				PLOT POINTS: x,y; x,y-1; x,y+1; x-1,y; x+1,y; x-1,y-1; x+1,y+1; x+1,y-1; x-1,y+1
+
+				PLOT POINTS: x+.5,y+.5; x-.5,y-.5; x,y-.5; x,y+.5; x-.5,y; x+.5,y
+
+			
+			ELSE IF s = 1 AND pen_size$ = "large_spray" AND x < 143 AND y < 143 then
+
+			
+								
+				SET COLOR pen_color
+
+				PLOT POINTS: x,y; x,y-1; x,y+1; x-1,y; x+1,y; x-1,y-1; x+1,y+1; x+1,y-1; x-1,y+1
+
+				PLOT POINTS: x+.5,y+.5; x-.5,y-.5; x,y-.5; x,y+.5; x-.5,y; x+.5,y
+
+				PLOT POINTS: x+1.5,y+1.5; x-1.5,y-1.5; x,y+1.5; x,y+1.5; x+1.5,y; x-1.5,y
+
+				PLOT POINTS: x+.5,y+1.5; x-.5,y+1.5; x+.5,y-1.5; x-.5,y-1.5
+
+				PLOT POINTS: x+2,y+2; x-2,y-2; x,y+2; x,y-2; x+2,y; x-2,y
+
+				PLOT POINTS: x+1.5,y+2; x-1.5,y+2; x+1.5,y-2; x-1.5,y+2; x+2,y+1.5; x-2,y+1.5; x+2,y-1.5; x-2,y+1.5		
+				
+
+
+			ELSE IF s = 1 AND pen_size$ = "fill" AND x < 143 AND y < 143 then
+
+
+				
+				SET COLOR pen_color
+
+				FLOOD x,y
+
+	
+
+		END IF
+
+
+	LOOP UNTIL s = 1
+
+	
+
+
+	!----if the person rolls over the text--------
+
+	IF x >= 0 AND x <= 49 AND y >= 125 AND y <= 150 then
+
+		PAUSE .25
+	
+		CLEAR
+	
+		CALL info(TIME,DATE$,bg_color)
+	
+
+	END IF
+
+	
+
+
+	!---------------done rolling over text-----------
+
+
+
+
+	
+	
+LOOP UNTIL pen_size$ = "exit"
+
+
+
+END
+
+
+
+
+
+!_________________________________________________________________
+
+
+
+
+
+
+SUB info(TIME,DATE$,bg_color)
+
+	
+	
+	!----the following 5 lines coding found in student shared---
+	
+	DIM v(1)
+	LET fn$ = "Palatino Linotype" 
+	LET fs$ = "BoldItalic" 
+	LET v(1) = 10 
+	CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+	!----end of coding found in student shared-----
+
+
+	!----setting text color----
+	
+
+	IF bg_color = 0 then
+
+		SET COLOR 15
+
+	ELSE IF bg_color = 1 then
+
+		SET COLOR 14
+
+	ELSE IF bg_color = 2 then
+
+		SET COLOR 12
+
+	ELSE IF bg_color = 3 then
+
+		SET COLOR 5
+
+	ELSE IF bg_color = 4 then
+
+		SET COLOR 10
+
+	ELSE IF bg_color = 5 then
+
+		SET COLOR 3 
+
+	ELSE IF bg_color = 6 then
+
+		SET COLOR 13
+
+	ELSE IF bg_color = 7 then
+
+		SET COLOR 9
+
+	ELSE IF bg_color = 8 then
+
+		SET COLOR 11
+
+	ELSE IF bg_color = 9 then
+
+		SET COLOR 7
+
+	ELSE IF bg_color = 10 then
+
+		SET COLOR 4
+
+	ELSE IF bg_color = 11 then
+
+		SET COLOR 8 
+
+	ELSE IF bg_color = 12 then
+
+		SET COLOR 2
+
+	ELSE IF bg_color = 13 then
+
+		SET COLOR 6
+
+	ELSE IF bg_color = 14 then
+
+		SET COLOR 1
+
+	ELSE IF bg_color = 15 then
+
+		SET COLOR 0
+
+	END IF
+
+	!-----done setting text color----
+
+
+	CALL date_and_time(TIME,DATE$)
+	
+	PRINT
+	
+	PRINT "MOVE THE MOUSE TO DRAW"
+
+	PRINT
+
+	PRINT "Roll over this boxed area and move your cursor away from the area" 
+	
+	PRINT "and wait for half a second to erase your drawing and reset the time"
+
+	SET COLOR 15
+
+	PLOT 0,125;49,125;49,150
+
+
+	!-----arrows-----
+
+	PLOT 18,149;32,149
+
+	PLOT 32,149;31,149.5
+
+	PLOT 32,149;31,148.5
+
+	PLOT 8,146;14,146 
+
+	PLOT 14,146;13,146.5
+
+	PLOT 14,146;13,145.5
+
+	!-----finished arrows---
+
+
+END SUB
+
+
+
+
+
+
+
+
+SUB pick_PEN_color(pen_color)
+
+
+	!----color boxes----
+
+	SET COLOR 1
+
+	BOX AREA 145,149,100,102
+
+
+	SET COLOR 9
+
+	BOX AREA 145,149,102,104 
+
+
+	SET COLOR 11
+
+	BOX AREA 145,149,104,106
+
+
+	SET COLOR 2
+
+	BOX AREA 145,149,106,108
+
+
+	SET COLOR 3
+
+	BOX AREA 145,149,108,110
+
+	
+	SET COLOR 6
+
+	BOX AREA 145,149,110,112
+
+
+	SET COLOR 10
+
+	BOX AREA 145,149,112,114
+
+
+	SET COLOR 4
+
+	BOX AREA 145,149,114,116
+
+
+	SET COLOR 12
+
+	BOX AREA 145,149,116,118
+
+
+	SET COLOR 5
+
+	BOX AREA 145,149,118,120
+
+
+	SET COLOR 13
+
+	BOX AREA 145,149,120,122
+
+
+	SET COLOR 14
+
+	BOX AREA 145,149,122,124
+
+
+	SET COLOR 8
+
+	BOX AREA 145,149,124,126
+
+
+	SET COLOR 7
+	
+	BOX AREA 145,149,126,128
+
+	
+	SET COLOR 15
+
+	BOX AREA 145,149,128,130
+
+
+	SET COLOR 0
+
+	BOX AREA 145,149,130,132
+
+
+
+	BOX AREA 145,149,95,97
+
+	
+
+	!----done making color boxes----
+
+
+
+	!-------setting the color----------
+
+
+	GET MOUSE x_this, y_this, s_this
+
+
+	IF x_this > 145 AND x_this < 149 AND s_this = 1 then
+
+
+		IF y_this > 100 AND y_this < 102 then	
+			
+			LET pen_color = 1
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 102 AND y_this < 104 then
+			
+			LET pen_color = 9
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 104 AND y_this < 106 then
+			
+			LET pen_color = 11
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 106 AND y_this < 108 then
+
+			LET pen_color = 2
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 108 AND y_this < 110 then
+
+			LET pen_color = 3
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 110 AND y_this < 112 then
+
+			LET pen_color = 6
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 112 AND y_this < 114 then
+	
+			LET pen_color = 10			
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 114 AND y_this < 116 then
+
+			LET pen_color = 4
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 116 AND y_this < 118 then
+
+			LET pen_color = 12
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 118 AND y_this < 120 then
+
+			LET pen_color = 5
+
+			SET COLOR 5
+
+		ELSE IF y_this > 120 AND y_this < 122 then
+
+			LET pen_color = 13
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 122 AND y_this < 124 then
+
+			LET pen_color = 14
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 124 AND y_this < 126 then
+
+			LET pen_color = 8
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 126 AND y_this < 128 then
+
+			LET pen_color = 7
+	
+			SET COLOR pen_color
+	
+		ELSE IF y_this > 128 AND y_this < 130 then
+
+			LET pen_color = 15
+
+			SET COLOR pen_color
+
+		ELSE IF y_this > 130 AND y_this < 132 then
+
+			LET pen_color = 0
+
+			SET COLOR pen_color
+
+		END IF
+	
+		
+
+
+	END IF
+
+
+	!-----finished setting color------
+
+	
+	SET COLOR pen_color
+
+	FLOOD 146,96
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+SUB pick_pen_SIZE(pen_size$)
+
+
+
+	!-----draw pen size boxes-----
+
+
+	CALL READ_IMAGE("JPEG", pencil$, "pencil_button.jpg")
+	
+	BOX SHOW pencil$ at 146,80
+
+
+	CALL READ_IMAGE("JPEG", paint$, "paintbrush_button.jpg")
+	
+	BOX SHOW paint$ at 146,76
+
+
+	CALL READ_IMAGE("JPEG", eraser$, "eraser_button.jpg")
+	
+	BOX SHOW eraser$ at 146,72
+
+
+	CALL READ_IMAGE("JPEG", spray$, "spray_button.jpg")
+	
+	BOX SHOW spray$ at 146,68
+
+
+	CALL READ_IMAGE("JPEG", fill$, "fill_button.jpg")
+	
+	BOX SHOW fill$ at 146,64
+
+
+	CALL READ_IMAGE("JPEG", exit$, "exit_button.jpg")
+
+	BOX SHOW exit$ at 146,60
+
+
+	!----finsihed pen size boxes-----
+
+
+
+	
+	!----setting pen size-----------
+
+
+	GET MOUSE x_this, y_this, s_this
+
+
+	IF x_this > 146 AND x_this < 148 AND s_this = 3 then
+
+		
+		IF y_this < 83 AND y_this > 80 then
+
+			
+			LET pen_size$ = "pencil"
+			
+
+		ELSE IF y_this < 79 AND y_this > 76 then
+
+
+			LET pen_size$ = "paint"
+
+
+
+		ELSE IF y_this < 75 AND y_this > 72 then
+
+
+			LET pen_size$ = "eraser"
+
+
+
+		ELSE IF y_this < 71 AND y_this > 68 then
+
+
+			LET pen_size$ = "spray"
+
+
+
+
+		ELSE IF y_this < 67 AND y_this > 64 then
+
+
+			LET pen_size$ = "fill"
+
+
+
+		ELSE IF y_this < 63 AND y_this > 60 then
+
+
+			LET pen_size$ = "exit"
+
+		END IF
+
+
+	END IF
+
+
+	IF pen_size$ = "pencil" then
+
+
+		
+		CALL READ_IMAGE("JPEG", pencil_down$, "pressed_pencil.jpg")
+	
+		BOX SHOW pencil_down$ at 146,80
+
+	
+		BOX SHOW paint$ at 146,76
+
+
+		BOX SHOW eraser$ at 146,72
+
+	
+		BOX SHOW spray$ at 146,68
+
+
+		BOX SHOW fill$ at 146,64
+
+
+	ELSE IF pen_size$ = "paint" OR pen_size$ = "small_paint" OR pen_size$ = "reg_paint" OR pen_size$ = "large_paint" then
+
+
+		BOX SHOW pencil$ at 146,80
+
+
+	 	CALL READ_IMAGE("JPEG", paint_down$, "pressed_paintbrush.jpg")
+	
+		BOX SHOW paint_down$ at 146,76
+
+	
+		BOX SHOW eraser$ at 146,72
+
+	
+		BOX SHOW spray$ at 146,68
+
+
+	
+		BOX SHOW fill$ at 146,64
+
+
+	ELSE IF pen_size$ = "eraser"  OR pen_size$ = "small_eraser" OR pen_size$ = "reg_eraser" OR pen_size$ = "large_eraser" then
+
+
+		
+		BOX SHOW pencil$ at 146,80
+
+
+	
+		BOX SHOW paint$ at 146,76
+
+
+		CALL READ_IMAGE("JPEG", eraser_down$, "pressed_eraser.jpg")
+	
+		BOX SHOW eraser_down$ at 146,72
+
+
+	
+		BOX SHOW spray$ at 146,68
+
+
+	
+		BOX SHOW fill$ at 146,64
+
+
+	ELSE IF pen_size$ = "spray" OR pen_size$ = "small_spray" OR pen_size$ = "reg_spray" OR pen_size$ = "large_spray" then
+
+
+		
+		BOX SHOW pencil$ at 146,80
+
+	
+		BOX SHOW paint$ at 146,76
+
+	
+		BOX SHOW eraser$ at 146,72
+
+
+		CALL READ_IMAGE("JPEG", spray_down$, "pressed_spray.jpg")
+	
+		BOX SHOW spray_down$ at 146,68
+
+
+	
+		BOX SHOW fill$ at 146,64
+
+
+	ELSE IF pen_size$ = "fill" then
+
+
+		
+		BOX SHOW pencil$ at 146,80
+
+
+		BOX SHOW paint$ at 146,76
+
+	
+		BOX SHOW eraser$ at 146,72
+
+
+		BOX SHOW spray$ at 146,68
+
+
+
+		CALL READ_IMAGE("JPEG", fill_down$, "pressed_fill.jpg")
+	
+		BOX SHOW fill_down$ at 146,64
+
+		
+
+
+	END IF
+ 
+
+
+
+END SUB
+
+
+
+
+
+
+
+
+SUB size_eraser_paint(pen_size$)
+
+
+	
+	IF pen_size$ = "paint" OR pen_size$ = "small_paint" OR pen_size$ = "large_paint" OR pen_size$ = "eraser" OR pen_size$ = "small_eraser" OR pen_size$ = "large_eraser" OR  pen_size$ = "spray" OR pen_size$ = "small_spray" OR pen_size$ = "large_spray" then
+
+		DIM v(1)
+		LET fn$ = "Comic Sans MS" 
+		LET fs$ = "BoldItalic" 
+		LET v(1) = 7 
+		CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+		SET COLOR 15
+
+		PLOT TEXT, at 144,50: "Small"
+
+
+		LET v(1) = 9
+		CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+		PLOT TEXT, at 143,46: "Regular"
+
+
+		LET v(1) = 11
+		CALL Object (2, 0, "FONT NAME|FONT STYLE|FONT SIZE", fn$ & "|" & fs$, v())
+
+
+		PLOT TEXT, at 143,41: "Large"
+
+	ELSE  
+		
+		BOX CLEAR 142,150,53,40
+
+
+	END IF
+
+
+
+
+	GET MOUSE x_this, y_this, s_this
+
+	IF x_this > 143 AND x_this < 149 AND y_this > 50 AND y_this < 53 AND s_this = 1 then
+
+
+		IF pen_size$ = "paint" OR pen_size$ = "large_paint" then
+
+
+			LET pen_size$ = "small_paint"
+
+
+		ELSE IF pen_size$ = "eraser" OR pen_size$ = "eraser" OR pen_size$ = "large_eraser" then
+
+
+			LET pen_size$ = "small_eraser"
+
+
+		ELSE IF pen_size$ = "spray" OR pen_size$ = "spray" OR pen_size$ = "large_spray" then
+
+
+			LET pen_size$ = "small_spray"
+
+		END IF
+
+
+	
+	ELSE IF x_this > 143 AND x_this < 149 AND y_this > 46 AND y_this < 49 AND s_this = 1 then
+
+
+		
+		IF pen_size$ = "small_paint" OR pen_size$ = "large_paint" then
+
+
+			LET pen_size$ = "paint"
+
+
+		ELSE IF pen_size$ = "eraser" OR pen_size$ = "small_eraser" OR pen_size$ = "large_eraser" then
+
+
+			LET pen_size$ = "eraser"
+
+
+		ELSE IF pen_size$ = "spray" OR pen_size$ = "small_spray" OR pen_size$ = "large_spray" then
+
+
+			LET pen_size$ = "spray"
+
+		END IF
+
+
+
+	ELSE IF x_this > 143 AND x_this < 149 AND y_this > 41 AND y_this < 44 AND s_this = 1 then
+
+
+		
+		IF pen_size$ = "paint" OR pen_size$ = "small_paint" then
+
+
+			LET pen_size$ = "large_paint"
+
+
+		ELSE IF pen_size$ = "eraser" OR pen_size$ = "eraser" OR pen_size$ = "small_eraser" then
+
+
+			LET pen_size$ = "large_eraser"
+
+
+		ELSE IF pen_size$ = "spray" OR pen_size$ = "spray" OR pen_size$ = "small_spray" then
+
+
+			LET pen_size$ = "large_spray"
+
+		END IF
+
+
+
+	END IF
+
+
+
+
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+SUB pick_bg_color(bg_color)
+
+	
+	!----draw color boxes---
+
+	
+	SET COLOR 1
+
+	BOX AREA 50,52,146,150
+
+	
+	SET COLOR 9
+
+	BOX AREA 52,54,146,150
+
+	
+	SET COLOR 11
+
+	BOX AREA 54,56,146,150
+
+	
+	SET COLOR 2
+	
+	BOX AREA 56,58,146,150
+
+
+	SET COLOR 3
+
+	BOX AREA 58,60,146,150
+
+	
+	SET COLOR 6
+
+	BOX AREA 60,62,146,150
+
+
+	SET COLOR 10
+
+	BOX AREA 62,64,146,150
+
+
+	SET COLOR 4
+
+	BOX AREA 64,66,146,150
+
+
+	SET COLOR 12
+
+	BOX AREA 66,68,146,150
+
+	
+	SET COLOR 5
+
+	BOX AREA 68,70,146,150
+
+	
+	SET COLOR 13
+
+	BOX AREA 70,72,146,150
+
+
+	SET COLOR 14
+
+	BOX AREA 72,74,146,150
+
+	
+	SET COLOR 8
+
+	BOX AREA 74,76,146,150
+
+	
+	SET COLOR 7
+
+	BOX AREA 76,78,146,150
+
+
+	SET COLOR 15
+
+	BOX AREA 78,80,146,150
+
+	
+	SET COLOR 0
+
+	BOX AREA 80,82,146,150
+
+
+	BOX KEEP 50,82,146,150 in bg_pallet$
+
+
+	!----get color-----
+
+	GET MOUSE x_this,y_this,s_this
+	
+
+	IF y_this > 146 AND y_this < 150 AND s_this = 1 then
+
+
+
+		IF x_this > 50 AND x_this < 52 then
+
+			LET bg_color = 1			
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 52 AND x_this < 54 then
+
+			LET bg_color = 9			
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 54 AND x_this < 56 then
+
+			LET bg_color = 11			
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 56 AND x_this < 58 then
+
+			LET bg_color = 2
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 58 AND x_this < 60 then
+
+			LET bg_color = 3
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 60 AND x_this < 62 then
+
+			LET bg_color = 6
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 62 AND x_this < 64 then
+
+			LET bg_color = 10
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 64 AND x_this < 66 then
+
+			LET bg_color = 4
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 66 AND x_this < 68 then
+
+			LET bg_color = 12
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 68 AND x_this < 70 then
+
+			LET bg_color = 5
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 70 AND x_this < 72 then
+
+			LET bg_color = 13
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 72 AND x_this < 74 then
+
+			LET bg_color = 14
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 74 AND x_this < 76 then
+
+			LET bg_color = 8
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 76 AND x_this < 78 then
+
+			LET bg_color = 7
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 78 AND x_this < 80 then
+
+			LET bg_color = 15
+
+			SET BACK bg_color
+
+		ELSE IF x_this > 80 AND x_this < 82 then
+
+			LET bg_color = 0
+
+			SET BACK bg_color
+
+		END IF
+
+
+		CLEAR
+
+		CALL info(TIME,DATE$,bg_color)
+
+
+
+	END IF
+
+
+	!-----finished getting color----
+
+
+	BOX SHOW bg_pallet$ at 50,146
+
+
+END SUB
+
+
+
+
+
+
+
+
+SUB date_and_time(TIME, DATE$)
+
+
+	!-------date and time-----
+
+
+	IF TIME < 43200 then
+
+
+		PRINT "Good morning, today is "; DATE$
+
+
+	ELSE IF TIME > 43200 AND TIME < 64800 then
+
+
+		PRINT "Good afternoon, today is "; DATE$
+
+
+	ELSE IF TIME > 64800 AND TIME < 72000 then
+
+
+		PRINT "Good evening, today is "; DATE$
+
+
+	ELSE IF TIME < 72000 AND TIME > 86400 then
+
+
+		PRINT "Good night, today is "; DATE$
+
+
+	END IF
+
+
+	LET now_time = TIME
+
+	CALL DIVIDE (now_time, 3600, hours, remainder)
+
+	CALL DIVIDE (remainder, 60, minutes, seconds)
+
+	
+	IF hours > 12 then
+
+		LET hours = hours - 12
+
+		PRINT "The time is "; hours; ":"; minutes; ":"; seconds; "P.M."
+
+	ELSE 
+
+		PRINT "The time is "; hours; ":"; minutes; ":"; seconds; "A.M."
+
+
+	END IF
+
+	!------end date and time----
+
+END SUB
+
+
+
+
+
+
+
+
+
+SUB play_song
+
+
+
+		!CALL first_part_first_mvmt
+
+		!CALL second_part_first_mvmt
+
+		CALL second_mvmt
+
+		!CALL third_mvmt
+
+
+END SUB
+
+
+
+
+
+
+
+
+
+SUB first_part_first_mvmt
+
+	PLAY "T 150"
+	
+
+	PLAY "MB O4 B O5 D8 O4 B8GG P32 B O5 D8 O4 B8G O5 GF8E8D8C8 O4 B8 O5 C8 O4 B8 O5 C8D8C8 O4 B8A8G P"
+
+	PLAY "MB O4 B O5 D8 O4 B8GG O5 EG8E8CE8C8D8 O4 B8 O5 C8 O4 A8B8G8A8F#8G8A8B8 O5 C8D8E8F#8G"
+
+	PLAY "MB O4 A O5 AAA O4 B8 O5 C8D8E8F#8G8A8B8C O6 CCC O5 D8G8B8 O6 D8C8 O5 B8A8G8"
+
+	PLAY "MB O5 F#8E8G8F#8A8G8F#8E8E8D8C8 O4 B8 O5 D8C8 O4 B8A8G2"
+
+
+
+END SUB
+
+
+
+
+
+
+
+SUB second_part_first_mvmt
+
+	PLAY "T 150"
+
+
+	PLAY "MB O4 B- O5 D8 O4 B8GG O5 CE-8C8 O4 G O5 GFDE-C O4 B8 O5 C8D8 O4 B8GG O5G8 O4G8 O5G8 O4G8 O5G8 O4G8 O5G8 O4G8"
+
+	PLAY "MB O5 G8 O4G8 O5G8 O4G8 O5G8 O4G8 O5G8 O4G8 O5 D8E-8F8D8F8E-8D8C8G P4 P2 O4 CE8C8 O3 GG O4 CE8C8 O3 G O4 G"
+
+	PLAY "MB O4 F8E8D8C8 O3B8 O4C8 O3B8 O4 C8D8C8 O3 B8A8G P4 O4 C O3 G8 O4 C8EEEC8E8G O5 C O4 GFED"
+
+	PLAY "MB O4 C8D8E8F8G8A8B8 O5 C8 O4 D O5 DDD O4 E8F8G8A8B8 O5 C8D8E8 O4 F O5 FFF"
+
+	PLAY "MB O4 G8 O5 C8E8G8F8E8D8C8 O5 A8G8F8E8D8C8 O4 B8A8G8A8F8G8E8F8D8E8 O4 C2 P2"
+
+
+END SUB
+
+
+
+
+
+
+
+SUB second_mvmt
+
+	PLAY "T 90"
+
+
+	PLAY "MB O5 C2 F O4 A2 O5 C O4 F2 A16G16A16G16F16G16"
+
+	PLAY "MB O4 A F8A8 O5 C8F8F8F8 D O4 F8B-8 O5 D8F8F8F8 C A8G8F8E8D8C8"
+
+	PLAY "MB O5 C8 O4 E8G8 O5 C8 O4 F8A8 O5 C8 O4 F8A8 O5 C O4 A16G P4 O5 F8F8F8E8E8E8D8D8D8"
+	
+	PLAY "MB O5 G O4 G8A8B-8 O5 C8D8E8 O4 A8 O5 F8D8C8C8C8 O4 B-8B-8B-8 O5 D2 C"
+
+
+	PLAY "MB O5 C8C8C8E-8D8C8 O4 B-8A8G8F#8A8D8G8B-8D8A8 O5 C8 O4 D8B-8B-8B-8 O5 D8C8 O4 B-8A8G8F8"
+
+	PLAY "MB O4 E8G8C8F8A8 O5 C8C8 O4 B-8A8 A G8 O5 C8C8C8 O4 B-8A8 A G P4"
+
+	PLAY "MB O5 C2 F O4 A2 O5 C O4 E-2 F16E-16F16E-16D16E-16 D8F8B-8 O5 D8D8D8D"
+
+	PLAY "MB O4 B-8B-8B-8A8A8A8G8G8G8 O5 C O4 F16 O5 F8E8D8C8 O4 B-8A8G8B-8 O5 D8 O4 F A16G16A16G16F16G16 F."
+
+
+END SUB
+
+
+
+
+
+
+
+
+SUB third_mvmt
+
+
+	PLAY "T 180"
+
+	PLAY "MB O5 E16D16C8C8GF16E16D8F8 O4 B8 O5 C8 O4 G8G8 O5 E16D16C8C8GF16E16"
+
+	PLAY "MB O5 D16E16F16E16F16D16C8 P8 P8"
+
+	PLAY "MB O4 G16F16E8E8A16G16F8F8D16F16B16F16B16F16"
+
+	PLAY "MB O4 E8G8 O5 C8 O4 G16F16E8E8 O5 E16D16C8C8 O4 F#16G16A16B16 O5 C16 O4 A16G8 P8 O5 B16 O6 C16D16C16 O5 B16A16G16F#16"
+
+	PLAY "MB O5 E16D16C16 O4 B16A16G16F#16G16A16B16 O5 C16 O4 A16G8 P8 O5 B16 O6 C16D16C16 O5 B16A16G16F#16F8F8 O6 D16 O5 B16"
+
+
+	PLAY "MB O5 F8F8 O6 D16 O5 B16F8 P8 P8 D8 P8 P8 O4 B16G16A16B16 O5 C16D16E16D16C8C8 G F16E16D8F8 O4 B"
+
+	PLAY "MB O5 C8 O4 G8G8 O5 E16D16C8C8 O5 G F16E16D16E16F16E16F16D16C8 P8 P8"	
+
+	PLAY "MB O5 E16F16G16F16E16D16C16 O4 B16A16G16F16E16D16C16 O3 B16 O4 C16D16E16F16D16C P8 G16F16E8E8A16G16F8F8D16F16B16F16B16F16E8 P8 E16F16"
+	
+	PLAY "MB O5 G16F16E16D16C16 O4 B16A16G16F16E16D16C16 O3 B16 O4 C16D16E16F16D16C8 P8 P8 G8 P8 P8 O5 C8 P8 P8 G8 P8 P8 O6 C P8"
+
+
+END SUB 
+

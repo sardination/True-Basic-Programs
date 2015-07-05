@@ -1,0 +1,626 @@
+OPEN #1:SCREEN 0,1,0,1
+WINDOW #1
+SET WINDOW 0,100,0,100
+
+
+CALL part_1(red_guy$)
+
+CALL part_2(red_guy$)
+
+
+
+END
+
+
+
+
+
+SUB part_1(red_guy$)
+
+
+    !---star and moon and sky-----
+
+    SET COLOR 1
+
+    FLOOD 0,1
+
+
+    SET COLOR 14
+
+    BOX CIRCLE 5,20,75,95
+
+    FLOOD 17,80
+
+
+
+    SET COLOR 1
+
+    BOX CIRCLE 0,15,70,90
+
+    FLOOD 14,80
+
+
+
+    SET COLOR 14
+
+    PLOT 25,75; 26,78; 27,75; 28.5,75; 27.5,73; 28.25,71;
+
+    PLOT 26,72.5; 24.5,71; 25,73; 23.5,75; 25,75
+
+
+    FLOOD 25,74
+
+    !-----finished star and moon and sky----
+
+
+
+
+    !----ufo-----
+
+    SET COLOR 2
+
+    BOX CIRCLE 40,55,80,90
+
+    FLOOD 50,85
+
+
+    SET COLOR 11
+
+    BOX CIRCLE 43.2,51.2,82,88
+
+    FLOOD 47.5,85.5
+
+
+    SET COLOR 8
+
+    BOX CIRCLE 35,60,75,85
+
+    FLOOD 45,80
+
+    FLOOD 46,82
+
+    FLOOD 47.5, 84.5
+
+
+
+    SET COLOR 1
+
+    BOX AREA 35,60,74,80
+
+
+    SET COLOR 6
+
+    BOX CIRCLE 36,37,81,82
+
+    BOX CIRCLE 38,39,81,82
+
+    BOX CIRCLE 40,41,81,82
+
+    BOX CIRCLE 42,43,81,82
+
+    BOX CIRCLE 44,45,81,82
+
+    BOX CIRCLE 46,47,81,82
+
+    BOX CIRCLE 48,49,81,82
+
+    BOX CIRCLE 50,51,81,82
+
+    BOX CIRCLE 52,53,81,82
+
+    BOX CIRCLE 54,55,81,82
+
+    BOX CIRCLE 56,57,81,82
+
+    BOX CIRCLE 58,59,81,82
+
+
+    !------finished ufo------
+
+
+
+
+    !------grass------
+
+    DO WHILE x < 101
+
+       SET COLOR 10
+
+       PLOT x,0;x,3
+
+       LET x = x + .25
+
+
+    LOOP
+
+    !-----finished grass----
+
+
+
+
+    !-------red guy-----
+
+    SET COLOR 12
+
+    BOX CIRCLE 45,50,4,10
+
+    FLOOD 47.5,7
+
+    PLOT 46,9; 46,11
+
+    PLOT 49,9; 49,11
+
+
+    SET COLOR 0
+
+    BOX CIRCLE 45.5,47.5,6,9
+
+    BOX CIRCLE 49.5,47.5,6,9
+
+    FLOOD 46.5,7.5
+
+    FLOOD 48.5,7.5
+
+
+    SET COLOR 15
+
+    BOX CIRCLE 45.75,46.5,7.75,8.75
+
+    FLOOD 46,8
+
+    BOX CIRCLE 47.9,48.65,7.75,8.75
+
+    FLOOD 48.4,8.25
+
+
+    SET COLOR 7
+
+    PLOT 46.5,5.5; 48.5,5.5
+
+
+    !----finished red guy------
+
+
+
+
+    !----color changing lights on ufo-------
+
+    LET odd_circles = 5
+
+    LET even_circles = 6
+
+
+
+    PLAY "MB O4 F2 P32 A2 P32 O5 C#C1"
+
+
+
+    LET ufo_time = TIME
+
+    DO
+
+
+       SET COLOR odd_circles
+
+
+       FLOOD 36.5,81.5
+
+       FLOOD 40.5,81.5
+
+       FLOOD 44.5,81.5
+
+       FLOOD 48.5,81.5
+
+       FLOOD 52.5,81.5
+
+       FLOOD 56.5,81.5
+
+
+       SET COLOR even_circles
+
+
+       FLOOD 38.5,81.5
+
+       FLOOD 42.5,81.5
+
+       FLOOD 46.5,81.5
+
+       FLOOD 50.5,81.5
+
+       FLOOD 54.5,81.5
+
+       FLOOD 58.5,81.5
+
+
+       PAUSE 0.3
+
+
+       LET odd_circles = even_circles
+
+       IF odd_circles = 6 then
+
+          LET even_circles = 5
+
+       ELSE IF odd_circles = 5 then
+
+          LET even_circles = 6
+
+       END IF
+
+    LOOP UNTIL TIME >= ufo_time + 5
+
+
+
+    !------finished color changing lights-------
+
+
+
+
+    !------yellow light----------
+
+
+    SET COLOR 14
+
+    PLOT 45,80; 35,4
+
+    PLOT 50,80; 60,4
+
+    PLOT 35,4; 60,4
+
+    FLOOD 48,79
+
+
+    !------finished yellow light-----
+
+
+
+
+    !-----abducting red guy-------
+
+
+    BOX KEEP 45,50,4,11 in red_guy$
+
+
+    LET y = 11
+
+
+    DO UNTIL y = 70
+
+
+       BOX CLEAR 45,50,y,y-7
+
+       LET y = y + 1
+
+       BOX SHOW red_guy$ at 45,y
+
+       PAUSE .05
+
+       FLOOD 45,y
+
+       FLOOD 45, y-1
+
+    LOOP
+
+
+    BOX CLEAR 45,50,79,60
+
+    FLOOD 45,68
+
+
+
+    SET COLOR 1
+
+    FLOOD 48,10
+
+    PAUSE .5
+
+    !------finished abducting red guy----
+
+
+
+    !----make ufo fly away----
+
+    BOX KEEP 35,60,75,90 in ufo$
+
+
+    LET x = 35
+
+
+    SET COLOR 1
+
+
+    DO UNTIL x > 97.5
+
+
+       BOX CLEAR x,x+25,75,90
+
+       LET x = x + 12.5
+
+       BOX SHOW ufo$ at x,75
+
+       FLOOD x-24,74
+
+
+
+    LOOP
+
+
+    BOX CLEAR x-25,x,75,90
+
+    FLOOD 74,76
+
+
+    PAUSE .5
+
+    PRINT "CLICK TO CONTINUE"
+
+    DO
+
+       GET MOUSE x,y,s
+
+       IF s = 2 then
+
+          CLEAR
+
+       END IF
+
+    LOOP UNTIL s = 2
+
+END SUB
+
+
+!__________________NEXT PART________________
+
+
+
+
+
+
+SUB part_2(red_guy$)
+
+
+    !------blue guy's room-----
+
+
+    SET COLOR 5
+
+    BOX AREA 0,100,0,100
+
+
+    !----floor---------
+
+    SET COLOR 15
+
+    PLOT LINES: 0,17.5;100,17.5
+
+    FLOOD 1,1
+
+    LET x1 = 0
+
+    LET x2 = 6
+
+    LET y = 0
+
+
+    SET COLOR 0
+
+    DO
+
+       PLOT LINES: x1,0;x2,17.5
+
+       LET x1 = x1 + 7
+
+       LET x2 = x2 + 7
+
+
+    LOOP UNTIL x1 >= 100
+
+
+    DO
+
+       PLOT LINES: 0,y;100,y
+
+       LET y = y + 3.5
+
+
+    LOOP UNTIL y = 17.5
+
+
+    !-----blue guy------
+
+    SET COLOR 11
+
+    BOX CIRCLE 25,30,17.5,23.5
+
+    FLOOD 27.5,20.5
+
+    PLOT 26,22.5; 26,24.5
+
+    PLOT 29,22.5; 29,24.5
+
+
+    SET COLOR 0
+
+    BOX CIRCLE 25.5,27.5,19.5,22.5
+
+    BOX CIRCLE 29.5,27.5,19.5,22.5
+
+    FLOOD 26.5,21
+
+    FLOOD 28.5,21
+
+
+    SET COLOR 15
+
+    BOX CIRCLE 25.75,26.5,21.25,22.25
+
+    FLOOD 26,21.5
+
+    BOX CIRCLE 27.9,28.65,21.25,22.25
+
+    FLOOD 28.4,21.75
+
+
+    SET COLOR 7
+
+    BOX CIRCLE 27,28,19,18
+
+    SET COLOR 11
+
+    BOX AREA 26.5,28.5,18.5,19
+
+
+    !-------finished blue guy-----
+
+
+    !-----picture frame--------
+
+    SET COLOR 14
+
+    BOX AREA 45,55,80,90
+
+    SET COLOR 1
+
+    BOX AREA 47,53,82,88
+
+    !---finished picture frame---
+
+
+    !----TV------
+
+    SET COLOR 0
+
+    BOX CIRCLE 17,19,20,30
+
+    FLOOD 18,25
+
+    SET COLOR 7
+
+    BOX AREA 15,18,20,30
+
+
+    SET COLOR 8
+
+    PLOT LINES: 15,30;12,26;12,23;15,20
+
+    FLOOD 13,25
+
+
+    SET COLOR 14
+
+    PLOT LINES: 20,27;22,28
+
+    PLOT LINES: 20,25;22,25
+
+    PLOT LINES: 20,23;22,22
+
+
+    SET COLOR 4
+
+    PLOT LINES: 11,20; 21,20; 21,19.5; 11,19.5; 11,20
+
+    FLOOD 12,19.75
+
+    PLOT LINES: 21,19.5; 21,17.5; 20,17.5; 20,19.5
+
+    FLOOD 20.5,18
+
+    PLOT LINES: 11,19.5; 11,17.5; 12,17.5; 12,19.5
+
+    FLOOD 11.5,18
+
+    !-----finished TV-------
+
+
+    !-----surprised blue guy------
+
+    PAUSE 1.5
+
+    SET COLOR 12
+
+    PLOT LINES: 28.5,23.5; 29,22.5; 29.5,23.5
+
+    PLOT LINES: 30,23; 29.5,22; 30,22
+
+    BOX CIRCLE 27,28,19,18
+
+    PAUSE .75
+
+    CLEAR
+
+
+    !-------TV report---------
+
+
+
+    SET COLOR 5
+
+    FLOOD 50,50
+
+    SET COLOR 7
+
+    BOX AREA 30,70,30,70
+
+    SET COLOR 0
+
+    BOX AREA 35,65,35,65
+
+    SET COLOR 4
+
+    BOX AREA 25,75,25,30
+
+    BOX AREA 73,75,30,0
+
+    BOX AREA 25,27,30,0
+
+
+    !----reporter-----
+
+    SET COLOR 2
+
+    BOX CIRCLE 45,55,40,50
+
+    FLOOD 50,45
+
+
+
+    SET COLOR 0
+
+    BOX CIRCLE 47.5,49.5,44.5,47.5
+
+    BOX CIRCLE 51.5,49.5,44.5,47.5
+
+    FLOOD 48.5,46
+
+    FLOOD 50.5,46
+
+
+    SET COLOR 15
+
+    BOX CIRCLE 47.75,48.5,46.25,47.25
+
+    FLOOD 48,46.5
+
+    BOX CIRCLE 49.9,50.65,46.25,47.25
+
+    FLOOD 50.4,46.75
+
+
+    !----finished reporter-----
+
+
+    !----text and missing-----
+
+
+    BOX SHOW red_guy$ at 35,65
+
+
+
+
+
+
+
+
+
+
+END SUB
